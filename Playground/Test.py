@@ -1,7 +1,9 @@
+import matplotlib.pyplot as plt
 
 
-x = [1,2,3,4,5,6,7,8,9,0]
+x = [1,2,3,6]
 
-y = x[..., 6]
-
-print(y)
+plt.plot(x)
+plt.xlabel('iteration')
+plt.ylabel('Loss')
+plt.show()

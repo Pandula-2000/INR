@@ -109,6 +109,7 @@ if __name__ == '__main__':
     
     tbar = tqdm(range(niters))
     init_time = time.time()
+    # -------------------------------- Training Loop ---------------------------------
     for epoch in tbar:
         indices = torch.randperm(H*W)
         

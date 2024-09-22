@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f0eddabd-6f41-474a-aa0b-7447383999f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Playground/Siren_Image_GradFix.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Playground/Siren_Image_GradFix.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/images/teaser.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/gauss.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/lin_inverse.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/mfn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/motion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/relu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/siren.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/volutils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/wire.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/modules/wire2d.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/wire_SISR.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/wire_ct.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/wire_image_denoise.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/wire_multi_sr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground/Wire Implementation/wire_occupancy.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2mQAxK0tiprnOwNU5eVMhpKXRW3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;0d570cb2-96df-43cc-80da-7f777e6d0afe&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "X:/PROJECTS/INR",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "0d570cb2-96df-43cc-80da-7f777e6d0afe",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f0eddabd-6f41-474a-aa0b-7447383999f2" name="Changes" comment="" />
+      <created>1726998671578</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726998671578</updated>
+      <workItem from="1726998672682" duration="76000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
 </project>

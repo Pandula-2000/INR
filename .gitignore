@@ -1,3 +1,6 @@
 
 *.pyc
 /Ref
+*.pyc
+*.pyc
+Playground/Wire Implementation/modules/__pycache__/gauss.cpython-311.pyc

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import sys
 import tqdm
@@ -10,6 +8,7 @@ import torch
 from torch import nn
 
 import torch.nn.functional as F
+
 
 class RealGaborLayer(nn.Module):
     '''
@@ -89,13 +88,20 @@ class ComplexGaborLayer(nn.Module):
         scale = self.scale_0 * lin
         
         return torch.exp(1j*omega - scale.abs().square())
-    
+
+
 class INR(nn.Module):
-    def __init__(self, in_features, hidden_features, 
+    def __init__(self, in_features,
+                 hidden_features,
                  hidden_layers, 
-                 out_features, outermost_linear=True,
-                 first_omega_0=30, hidden_omega_0=30., scale=10.0,
-                 pos_encode=False, sidelength=512, fn_samples=None,
+                 out_features,
+                 outermost_linear=True,
+                 first_omega_0=30,
+                 hidden_omega_0=30.,
+                 scale=10.0,
+                 pos_encode=False,
+                 sidelength=512,
+                 fn_samples=None,
                  use_nyquist=True):
         super().__init__()
         

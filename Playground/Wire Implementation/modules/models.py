@@ -15,6 +15,7 @@ model_dict = {'gauss': gauss,
               'wire': wire,
               'wire2d': wire2d}
 
+
 def get_INR(nonlin, in_features, hidden_features, hidden_layers,
             out_features, outermost_linear=True, first_omega_0=30,
             hidden_omega_0=30, scale=10, pos_encode=False,

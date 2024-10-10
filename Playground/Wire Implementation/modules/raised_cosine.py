@@ -41,7 +41,7 @@ class RaisedCosineLayer(nn.Module):
         if self.is_first:
             dtype = torch.float  # 32 bit
         else:
-            dtype = torch.cfloat  # complex 64 bit
+            dtype = torch.float  # complex 64 bit
 
         # Set trainable parameters if they are to be simultaneously optimized
         self.T0 = nn.Parameter(self.T0 * torch.ones(1), trainable)
@@ -62,12 +62,11 @@ class RaisedCosineLayer(nn.Module):
         lin = self.linear(input)
         # beta = self.beta0 * lin
         # T = self.T0 * lin
-        A = torch.ones(input.shape[0])*(1-self.beta0)/2*self.T0
-        B = torch.ones(input.shape[0])*(1+self.beta)/2*self.T0
-        ABS = lin.abs()
+        A = torch.ones(lin.shape[0]).cuda()*(1-self.beta0)/2*self.T0
+        B = torch.ones(lin.shape[0]).cuda()*(1+self.beta0)/2*self.T0
+        ABS = lin.abs().cuda()
 
-        return 1 * torch.heaviside(A - ABS, torch.tensor([0])) + 0.5 * (1 + torch.cos(pi * self.T0 * (ABS - (1 - self.beta0 / 2 * self.T0)) / self.beta0) * (torch.heaviside(B - ABS, torch.tensor([0])) - torch.heaviside(A - ABS, torch.tensor([0]))))
-
+        return 1 * torch.sigmoid(A - ABS) + 0.5 * (1 + torch.cos(pi * self.T0 * (ABS - (1 - self.beta0 / 2 * self.T0)) / self.beta0) * (torch.sigmoid(B - ABS) - torch.sigmoid(A - ABS)))
 
 class INR(nn.Module):
     def __init__(self, in_features,
@@ -90,7 +89,7 @@ class INR(nn.Module):
         # Since complex numbers are two real numbers, reduce the number of
         # hidden parameters by 2 (NOTE: Skipped this)
         # hidden_features = int(hidden_features / np.sqrt(2))
-        dtype = torch.cfloat
+        dtype = torch.float
         # self.complex = True
         # self.wavelet = 'gabor'
 

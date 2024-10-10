@@ -7,13 +7,15 @@ from . import relu
 from . import siren
 from . import wire
 from . import wire2d
+from . import raised_cosine
 
 model_dict = {'gauss': gauss,
               'mfn': mfn,
               'relu': relu,
               'siren': siren,
               'wire': wire,
-              'wire2d': wire2d}
+              'wire2d': wire2d,
+              'raisedCos': raised_cosine}
 
 
 def get_INR(nonlin, in_features, hidden_features, hidden_layers,

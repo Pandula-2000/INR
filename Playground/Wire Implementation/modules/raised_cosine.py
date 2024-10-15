@@ -25,7 +25,7 @@ class RaisedCosineLayer(nn.Module):
     def __init__(self,
                  in_features,
                  out_features,
-                 s0 = 1,
+                 s0 = 100,
                  bias=True,
                  is_first=False,
                  beta0=0.5,
@@ -43,7 +43,6 @@ class RaisedCosineLayer(nn.Module):
         dtype = torch.float  # complex 64 bit
 
         # Set trainable parameters if they are to be simultaneously optimized
-        self.s0 = nn.Parameter(self.s0 * torch.ones(1), trainable)
         self.T0 = nn.Parameter(self.T0 * torch.ones(1), trainable)
         self.beta0 = nn.Parameter(self.beta0 * torch.ones(1), trainable)
 

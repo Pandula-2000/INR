@@ -20,8 +20,8 @@ model_dict = {'gauss': gauss,
 
 def get_INR(nonlin, in_features, hidden_features, hidden_layers,
             out_features, outermost_linear=True, first_omega_0=30,
-            hidden_omega_0=30, scale=10, pos_encode=False,
-            sidelength=512, fn_samples=None, use_nyquist=True):
+            hidden_omega_0=30, beta0=0.3, T0=0.5,scale=10, 
+            pos_encode=False, sidelength=512, fn_samples=None, use_nyquist=True):
     '''
         Function to get a class instance for a given type of
         implicit neural representation
@@ -60,6 +60,8 @@ def get_INR(nonlin, in_features, hidden_features, hidden_layers,
                         outermost_linear,
                         first_omega_0,
                         hidden_omega_0,
+                        beta0,
+                        T0,
                         scale,
                         pos_encode,
                         sidelength,

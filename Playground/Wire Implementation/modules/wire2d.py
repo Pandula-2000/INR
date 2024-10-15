@@ -72,7 +72,8 @@ class INR(nn.Module):
     def __init__(self, in_features, hidden_features, 
                  hidden_layers, 
                  out_features, outermost_linear=True,
-                 first_omega_0=10, hidden_omega_0=10., scale=10.0,
+                 first_omega_0=10, hidden_omega_0=10., 
+                 beta0=0.5, T0=0.1,scale=10.0,
                  pos_encode=False, sidelength=512, fn_samples=None,
                  use_nyquist=True):
         super().__init__()

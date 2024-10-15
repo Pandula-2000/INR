@@ -25,12 +25,14 @@ class RaisedCosineLayer(nn.Module):
     def __init__(self,
                  in_features,
                  out_features,
+                 s0 = 1,
                  bias=True,
                  is_first=False,
                  beta0=0.5,
                  T0=0.1,
                  trainable=False):
         super().__init__()
+        self.s0 = s0
         self.beta0 = beta0
         self.T0 = T0
         self.is_first = is_first
@@ -38,89 +40,71 @@ class RaisedCosineLayer(nn.Module):
         self.in_features = in_features
         self.out_features = out_features
 
-        if self.is_first:
-            dtype = torch.float  # 32 bit
-        else:
-            dtype = torch.float  # complex 64 bit
+        dtype = torch.float  # complex 64 bit
 
         # Set trainable parameters if they are to be simultaneously optimized
+        self.s0 = nn.Parameter(self.s0 * torch.ones(1), trainable)
         self.T0 = nn.Parameter(self.T0 * torch.ones(1), trainable)
         self.beta0 = nn.Parameter(self.beta0 * torch.ones(1), trainable)
 
-        self.linear = nn.Linear(in_features,
-                                out_features,
-                                bias=bias,
-                                dtype=dtype)
-
-        # # Second Gaussian window
-        # self.scale_orth = nn.Linear(in_features,
-        #                             out_features,
-        #                             bias=bias,
-        #                             dtype=dtype)
+        self.linear = nn.Linear(in_features, out_features, bias=bias, dtype=dtype)
 
     def forward(self, input):
         lin = self.linear(input)
-        # beta = self.beta0 * lin
-        # T = self.T0 * lin
-        A = torch.ones(lin.shape[0]).cuda()*(1-self.beta0)/2*self.T0
-        B = torch.ones(lin.shape[0]).cuda()*(1+self.beta0)/2*self.T0
-        ABS = lin.abs().cuda()
+        abs_lin = lin.abs().cuda()
+        
+        f1 = (1 - self.beta0) / (2 * self.T0)
+        f2 = (1 + self.beta0) / (2 * self.T0)        
+        f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (abs_lin - f1)))
 
-        return 1 * torch.sigmoid(A - ABS) + 0.5 * (1 + torch.cos(pi * self.T0 * (ABS - (1 - self.beta0 / 2 * self.T0)) / self.beta0) * (torch.sigmoid(B - ABS) - torch.sigmoid(A - ABS)))
-
+        out = self.T0 * (torch.sigmoid(self.s0*(abs_lin)) - torch.sigmoid(self.s0*(abs_lin - f1))) \
+        + f_ * (torch.sigmoid(self.s0*(abs_lin - f1)) - torch.sigmoid(self.s0*(abs_lin - f2)))
+        
+        return out
+        
 class INR(nn.Module):
     def __init__(self, in_features,
                  hidden_features,
                  hidden_layers,
                  out_features,
                  outermost_linear=True,
-                 first_beta=0.3,
-                 hidden_beta=0.5,
-                 T=0.1,
+                 first_omega_0=30,
+                 hidden_omega_0=30.,
+                 beta0=0.5,
+                 T0=0.1,
+                 sclae=None,
                  pos_encode=False,
                  sidelength=512,
                  fn_samples=None,
                  use_nyquist=True):
         super().__init__()
 
-        # All results in the paper were with the default complex 'gabor' nonlinearity
         self.nonlin = RaisedCosineLayer
-
-        # Since complex numbers are two real numbers, reduce the number of
-        # hidden parameters by 2 (NOTE: Skipped this)
-        # hidden_features = int(hidden_features / np.sqrt(2))
         dtype = torch.float
-        # self.complex = True
-        # self.wavelet = 'gabor'
-
-        # Legacy parameter
-        self.pos_encode = False
 
         self.net = []
         self.net.append(self.nonlin(in_features,
                                     hidden_features,
-                                    beta0=first_beta,
-                                    T0=T,
+                                    beta0=beta0,
+                                    T0=T0,
                                     is_first=True,
-                                    trainable=False))
+                                    trainable=True))
 
         for i in range(hidden_layers):
             self.net.append(self.nonlin(hidden_features,
                                         hidden_features,
-                                        beta0=hidden_beta,
-                                        T0=T))
+                                        beta0=beta0,
+                                        T0=T0,
+                                        is_first=True,
+                                        trainable=True))
 
-        final_linear = nn.Linear(hidden_features,
-                                 out_features,
-                                 dtype=dtype)
+        final_linear = nn.Linear(hidden_features, out_features, dtype=dtype)        
         self.net.append(final_linear)
 
         self.net = nn.Sequential(*self.net)
 
     def forward(self, coords):
         output = self.net(coords)
-        # if self.wavelet == 'gabor':
-        #     return output.real
         return output
 
 

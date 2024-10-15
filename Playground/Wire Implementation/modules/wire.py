@@ -98,6 +98,8 @@ class INR(nn.Module):
                  outermost_linear=True,
                  first_omega_0=30,
                  hidden_omega_0=30.,
+                 beta0=0.5,
+                 T0=0.1,
                  scale=10.0,
                  pos_encode=False,
                  sidelength=512,

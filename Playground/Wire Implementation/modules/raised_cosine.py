@@ -25,7 +25,7 @@ class RaisedCosineLayer(nn.Module):
     def __init__(self,
                  in_features,
                  out_features,
-                 s0 = 100,
+                 s0 = 80,
                  bias=True,
                  is_first=False,
                  beta0=0.5,
@@ -49,15 +49,14 @@ class RaisedCosineLayer(nn.Module):
         self.linear = nn.Linear(in_features, out_features, bias=bias, dtype=dtype)
 
     def forward(self, input):
-        lin = self.linear(input)
-        abs_lin = lin.abs().cuda()
+        lin = self.linear(input).abs().cuda()
         
         f1 = (1 - self.beta0) / (2 * self.T0)
         f2 = (1 + self.beta0) / (2 * self.T0)        
-        f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (abs_lin - f1)))
+        f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (lin - f1)))
 
-        out = self.T0 * (torch.sigmoid(self.s0*(abs_lin)) - torch.sigmoid(self.s0*(abs_lin - f1))) \
-        + f_ * (torch.sigmoid(self.s0*(abs_lin - f1)) - torch.sigmoid(self.s0*(abs_lin - f2)))
+        out = self.T0 * (torch.sigmoid(self.s0*(lin)) - torch.sigmoid(self.s0*(lin - f1))) \
+        + f_ * (torch.sigmoid(self.s0*(lin - f1)) - torch.sigmoid(self.s0*(lin - f2)))
         
         return out
         
@@ -71,7 +70,7 @@ class INR(nn.Module):
                  hidden_omega_0=30.,
                  beta0=0.5,
                  T0=0.1,
-                 sclae=None,
+                 scale=None,
                  pos_encode=False,
                  sidelength=512,
                  fn_samples=None,

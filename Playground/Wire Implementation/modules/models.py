@@ -53,19 +53,19 @@ def get_INR(nonlin, in_features, hidden_features, hidden_layers,
     '''
 
     inr_mod = model_dict[nonlin]
-    model = inr_mod.INR(in_features,
-                        hidden_features,
-                        hidden_layers,
-                        out_features,
-                        outermost_linear,
-                        first_omega_0,
-                        hidden_omega_0,
-                        beta0,
-                        T0,
-                        scale,
-                        pos_encode,
-                        sidelength,
-                        fn_samples,
-                        use_nyquist)
+    model = inr_mod.INR(in_features=in_features,
+                        hidden_features=hidden_features,
+                        hidden_layers=hidden_layers,
+                        out_features=out_features,
+                        outermost_linear=outermost_linear,
+                        first_omega_0=first_omega_0,
+                        hidden_omega_0=hidden_omega_0,
+                        beta0=beta0,
+                        T0=T0,
+                        scale=scale,
+                        pos_encode=pos_encode,
+                        sidelength=sidelength,
+                        fn_samples=fn_samples,
+                        use_nyquist=use_nyquist)
     
     return model

@@ -25,7 +25,7 @@ beta = 0.1  # Roll-off factor
 T = 1  # Symbol period
 
 # Generate filter valuest\
-t, rc_filter = raised_cosine_filter(beta, T)
+'''t, rc_filter = raised_cosine_filter(beta, T)
 
 # Plot the filter
 plt.plot(t, rc_filter)
@@ -33,4 +33,4 @@ plt.title('Raised Cosine Filter')
 plt.xlabel('Time')
 plt.ylabel('Amplitude')
 plt.grid(True)
-plt.show()
+plt.show()'''

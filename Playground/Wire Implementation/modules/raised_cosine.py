@@ -1,10 +1,10 @@
+
 import numpy as np
 import torch
 from torch import nn
 import torch.nn.functional as F
 
 pi = np.pi
-sigmoid = torch.nn.Sigmoid()
 
 
 class RaisedCosineLayer(nn.Module):
@@ -25,11 +25,11 @@ class RaisedCosineLayer(nn.Module):
     def __init__(self,
                  in_features,
                  out_features,
-                 s0=1000,
+                 s0 = 80,
                  bias=True,
                  is_first=False,
                  beta0=0.5,
-                 T0=0.6,
+                 T0=0.1,
                  trainable=False):
         super().__init__()
         self.s0 = s0
@@ -49,26 +49,17 @@ class RaisedCosineLayer(nn.Module):
         self.linear = nn.Linear(in_features, out_features, bias=bias, dtype=dtype)
 
     def forward(self, input):
-
-        # lin = self.linear(input).abs().cuda()
-        lin = input.cuda()
-
-        abs_lin = torch.abs(lin)  # Renamed to avoid shadowing 'abs' function
-
+        lin = self.linear(input).abs().cuda()
+        
         f1 = (1 - self.beta0) / (2 * self.T0)
-        f2 = (1 + self.beta0) / (2 * self.T0)
+        f2 = (1 + self.beta0) / (2 * self.T0)        
+        f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (lin - f1)))
 
-        # f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (abs_lin - f1)))
-        f_ = 1 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (abs_lin - f1)))
-        # out = self.T0 * (sigmoid(self.s0 * (abs_lin)) - sigmoid(self.s0 * (abs_lin - f1))) \
-        #       + f_ * (sigmoid(self.s0 * (abs_lin - f1)) - sigmoid(self.s0 * (abs_lin - f2)))
-
-        out = 1 * (sigmoid(self.s0 * (abs_lin)) - sigmoid(self.s0 * (abs_lin - f1))) \
-              + f_ * (sigmoid(self.s0 * (abs_lin - f1)) - sigmoid(self.s0 * (abs_lin - f2)))
-
+        out = self.T0 * (torch.sigmoid(self.s0*(lin)) - torch.sigmoid(self.s0*(lin - f1))) \
+        + f_ * (torch.sigmoid(self.s0*(lin - f1)) - torch.sigmoid(self.s0*(lin - f2)))
+        
         return out
-
-
+        
 class INR(nn.Module):
     def __init__(self, in_features,
                  hidden_features,
@@ -105,7 +96,7 @@ class INR(nn.Module):
                                         is_first=True,
                                         trainable=True))
 
-        final_linear = nn.Linear(hidden_features, out_features, dtype=dtype)
+        final_linear = nn.Linear(hidden_features, out_features, dtype=dtype)        
         self.net.append(final_linear)
 
         self.net = nn.Sequential(*self.net)
@@ -115,21 +106,12 @@ class INR(nn.Module):
         return output
 
 
-if __name__ == '__main__':
-    from matplotlib import pyplot as plt
-    lin = torch.linspace(-2, 2, 100).cuda()
-    o = RaisedCosineLayer(100, 100)
-    o.cuda()
-    # Forward pass through the layer
-    output = o(lin)
 
-    # Convert the output to a NumPy array
-    output_np = output.detach().cpu().numpy()
 
-    # Plot the output
-    plt.plot(lin.detach().cpu().numpy(), output_np)
-    plt.title('Raised Cosine Filter')
-    plt.xlabel('Time')
-    plt.ylabel('Amplitude')
-    plt.grid(True)
-    plt.show()
+
+
+
+
+
+
+

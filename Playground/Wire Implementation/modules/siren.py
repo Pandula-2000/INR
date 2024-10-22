@@ -9,7 +9,8 @@ import torch
 from torch import nn
 
 from .utils import build_montage, normalize
-    
+
+
 class SineLayer(nn.Module):
     '''
         See paper sec. 3.2, final paragraph, and supplement Sec. 1.5 for
@@ -24,8 +25,14 @@ class SineLayer(nn.Module):
         weight matrix (see supplement Sec. 1.5)
     '''
     
-    def __init__(self, in_features, out_features, bias=True,
-                 is_first=False, omega_0=30, scale=10.0, init_weights=True):
+    def __init__(self,
+                 in_features,
+                 out_features,
+                 bias=True,
+                 is_first=False,
+                 omega_0=30,
+                 scale=10.0,
+                 init_weights=True):
         super().__init__()
         self.omega_0 = omega_0
         self.is_first = is_first
@@ -47,14 +54,23 @@ class SineLayer(nn.Module):
         
     def forward(self, input):
         return torch.sin(self.omega_0 * self.linear(input))
-    
+
+
 class INR(nn.Module):
-    def __init__(self, in_features, hidden_features, 
+    def __init__(self,
+                 in_features,
+                 hidden_features,
                  hidden_layers, 
-                 out_features, outermost_linear=True,
-                 first_omega_0=30, hidden_omega_0=30., 
-                 beta0=0.5, T0=0.1,scale=10.0,
-                 pos_encode=False, sidelength=512, fn_samples=None,
+                 out_features,
+                 outermost_linear=True,
+                 first_omega_0=30,
+                 hidden_omega_0=30.,
+                 beta0=0.5,
+                 T0=0.1,
+                 scale=10.0,
+                 pos_encode=False,
+                 sidelength=512,
+                 fn_samples=None,
                  use_nyquist=True):
         super().__init__()
         self.pos_encode = pos_encode

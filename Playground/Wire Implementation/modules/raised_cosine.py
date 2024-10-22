@@ -53,9 +53,9 @@ class RaisedCosineLayer(nn.Module):
         
         f1 = (1 - self.beta0) / (2 * self.T0)
         f2 = (1 + self.beta0) / (2 * self.T0)        
-        f_ = self.T0 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (lin - f1)))
+        f_ = 1 / 2 * (1 + torch.cos(torch.pi * self.T0 / self.beta0 * (lin - f1)))
 
-        out = self.T0 * (torch.sigmoid(self.s0*(lin)) - torch.sigmoid(self.s0*(lin - f1))) \
+        out = 1 * (torch.sigmoid(self.s0*(lin)) - torch.sigmoid(self.s0*(lin - f1))) \
         + f_ * (torch.sigmoid(self.s0*(lin - f1)) - torch.sigmoid(self.s0*(lin - f2)))
         
         return out

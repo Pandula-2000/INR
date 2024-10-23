@@ -25,11 +25,11 @@ class RaisedCosineLayer(nn.Module):
     def __init__(self,
                  in_features,
                  out_features,
-                 s0 = 80,
+                 s0 = 1000,
                  bias=True,
                  is_first=False,
                  beta0=0.5,
-                 T0=0.1,
+                 T0=0.5,
                  trainable=False):
         super().__init__()
         self.s0 = s0
@@ -69,7 +69,7 @@ class INR(nn.Module):
                  first_omega_0=30,
                  hidden_omega_0=30.,
                  beta0=0.5,
-                 T0=0.1,
+                 T0=0.5,
                  scale=None,
                  pos_encode=False,
                  sidelength=512,

@@ -7,3 +7,7 @@ Playground/Wire Implementation/modules/__pycache__/gauss.cpython-311.pyc
 *.pyc
 *.pyc
 *.pyc
+
+*nohup.out
+
+Playground/Wire Implementation/results/denoising/**

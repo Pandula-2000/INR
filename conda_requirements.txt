@@ -230,6 +230,7 @@ python-dateutil=2.9.0=pyhd8ed1ab_0
 python_abi=3.12=5_cp312
 pytorch=2.4.0=py3.12_cuda12.4_cudnn9.1.0_0
 pytorch-cuda=12.4=hc786d27_6
+pytorch-msssim=1.0.0=pyhd8ed1ab_0
 pytorch-mutex=1.0=cuda
 pywavelets=1.7.0=py312hc0a28a1_1
 pyyaml=6.0.2=py312h66e93f0_1

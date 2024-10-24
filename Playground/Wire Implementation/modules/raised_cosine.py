@@ -29,7 +29,7 @@ class RaisedCosineLayer(nn.Module):
                  bias=True,
                  is_first=False,
                  beta0=0.5,
-                 T0=0.5,
+                 T0=0.6,
                  trainable=False):
         super().__init__()
         self.s0 = s0
